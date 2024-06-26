@@ -1,13 +1,11 @@
 package com.rashad.bank.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.rashad.bank.api.auth.service.JwtService;
-import com.rashad.bank.api.auth.service.UserDetailsServiceImpl;
-import com.rashad.bank.dto.CustomResponse;
+import com.rashad.bank.api.service.JwtService;
+import com.rashad.bank.api.service.UserDetailsServiceImpl;
+import com.rashad.bank.api.dto.response.CustomResponse;
 import com.rashad.bank.exception.ErrorCode;
 import com.rashad.bank.exception.ErrorResponse;
-import com.rashad.bank.exception.UserBlockedException;
-import com.rashad.bank.exception.UserDeletedException;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.security.SignatureException;
 import jakarta.servlet.FilterChain;

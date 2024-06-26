@@ -1,6 +1,6 @@
 package com.rashad.bank.exception;
 
-import com.rashad.bank.dto.CustomResponse;
+import com.rashad.bank.api.dto.response.CustomResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.MessageSource;
@@ -70,20 +70,10 @@ public class ErrorHandler {
     }
 
     @ResponseStatus(HttpStatus.CONFLICT)
-    @ExceptionHandler(UserAlreadyExistsException.class)
-    public ResponseEntity<CustomResponse> handleUserAlreadyExistsException(
-            UserAlreadyExistsException ex, Locale locale) {
+    @ExceptionHandler(AlreadyExistsException.class)
+    public ResponseEntity<CustomResponse> handleUserAlreadyExistsException(AlreadyExistsException ex, Locale locale) {
         String message = messageSource.getMessage(ex.getMessage(), null, locale);
         return ResponseEntity.status(HttpStatus.CONFLICT)
-                .body(CustomResponse.builder().error(new ErrorResponse(ex.getCode(), message)).build());
-    }
-
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(WrongUsernameFormatException.class)
-    public ResponseEntity<CustomResponse> handleWrongUsernameFormatException(
-            WrongUsernameFormatException ex, Locale locale) {
-        String message = messageSource.getMessage(ex.getMessage(), null, locale);
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body(CustomResponse.builder().error(new ErrorResponse(ex.getCode(), message)).build());
     }
 
@@ -116,11 +106,18 @@ public class ErrorHandler {
             String field = ex.getCause().toString().substring(
                     ex.getCause().toString().indexOf("[\"") + 2, ex.getCause().toString().indexOf("\"]"));
             message = messageSource.getMessage("integer-value", new Object[]{field}, locale);
-        } else if (ex.getMessage().contains("Cannot deserialize value of type `java.lang.Double`")) {
+        }
+        else if (ex.getMessage().contains("Cannot deserialize value of type `java.lang.Double`")) {
             String field = ex.getCause().toString().substring(
                     ex.getCause().toString().indexOf("[\"") + 2, ex.getCause().toString().indexOf("\"]"));
             message = messageSource.getMessage("double-value", new Object[]{field}, locale);
-        } else {
+        }
+        else if (ex.getMessage().contains("Cannot deserialize value of type `java.math.BigDecimal`")) {
+            String field = ex.getCause().toString().substring(
+                    ex.getCause().toString().indexOf("[\"") + 2, ex.getCause().toString().indexOf("\"]"));
+            message = messageSource.getMessage("big-decimal-value", new Object[]{field}, locale);
+        }
+        else {
             message = messageSource.getMessage("wrong-format", new Object[]{ex.getMessage()}, locale);
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
@@ -133,7 +130,7 @@ public class ErrorHandler {
         List<ErrorResponse> errorResponses = new ArrayList<>();
         ex.getBindingResult().getFieldErrors().forEach(
                 error -> errorResponses.add(new ErrorResponse(ErrorCode.REQUIRED_FIELDS,
-                        messageSource.getMessage("required-field", new Object[]{error.getField()}, locale))));
+                        messageSource.getMessage(error.getDefaultMessage(), new Object[]{error.getField()}, locale))));
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body(CustomResponse.builder().error(errorResponses).build());
     }

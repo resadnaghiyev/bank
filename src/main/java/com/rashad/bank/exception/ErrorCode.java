@@ -2,6 +2,7 @@ package com.rashad.bank.exception;
 
 public final class ErrorCode {
     public static final String USER_ALREADY_EXISTS = "USER_ALREADY_EXISTS";
+    public static final String ACCOUNT_ALREADY_EXISTS = "ACCOUNT_ALREADY_EXISTS";
     public static final String BAD_CREDENTIALS = "BAD_CREDENTIALS";
     public static final String RESOURCE_NOT_FOUND = "RESOURCE_NOT_FOUND";
     public static final String WRONG_OTP = "WRONG_OTP";
@@ -30,4 +31,7 @@ public final class ErrorCode {
     public static final String FILE_FORMAT = "FILE_FORMAT";
     public static final String MULTIPART_FILE = "MULTIPART_FILE";
     public static final String MINIO_EXCEPTION = "MINIO_EXCEPTION";
+    public static final String SAME_ACCOUNT = "SAME_ACCOUNT";
+    public static final String DEACTIVE_ACCOUNT = "DEACTIVE_ACCOUNT";
+    public static final String INSUFFICIENT_BALANCE = "INSUFFICIENT_BALANCE";
 }

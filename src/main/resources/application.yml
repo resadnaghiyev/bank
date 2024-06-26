@@ -9,7 +9,7 @@ spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/bank
     username: postgres
-    password: 3541
+    password:
   jpa:
     properties:
       hibernate:
@@ -21,9 +21,9 @@ spring:
     fallback-to-system-locale: false
 
 jwt:
-  access-token-expiration-time-ms: 30000
+  access-token-expiration-time-ms: 604800000
   refresh-token-expiration-time-ms: 604800000
-  secret-key: 12345
+  secret-key: 2B4B7DDEA1E27A9ACEBC6E2CD4877
 
 springdoc:
   swagger-ui:

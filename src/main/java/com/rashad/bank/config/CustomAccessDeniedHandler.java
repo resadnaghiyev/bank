@@ -1,7 +1,7 @@
 package com.rashad.bank.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.rashad.bank.dto.CustomResponse;
+import com.rashad.bank.api.dto.response.CustomResponse;
 import com.rashad.bank.exception.ErrorCode;
 import com.rashad.bank.exception.ErrorResponse;
 import jakarta.servlet.http.HttpServletRequest;

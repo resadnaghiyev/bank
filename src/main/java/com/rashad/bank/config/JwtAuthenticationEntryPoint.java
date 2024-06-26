@@ -1,14 +1,12 @@
 package com.rashad.bank.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.rashad.bank.dto.CustomResponse;
+import com.rashad.bank.api.dto.response.CustomResponse;
 import com.rashad.bank.exception.ErrorCode;
 import com.rashad.bank.exception.ErrorResponse;
-import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.context.MessageSource;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.InsufficientAuthenticationException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
